@@ -1,0 +1,23 @@
+334CA Ciorceanu Andrei Razvan
+Tema3
+
+Task 1:
+    Prima data, am declarat o structura de Process/Worker in care retinem in mai multe campuri coordonatorul acestui proces,rank-ul, cate procese sunt in celelalte clustere, topologia pe care o vom afisa mai tarziu cat si start si end pentru calculul vectorului la partea a 2 a.
+
+    Declaram un vector de acest tip de struct Worker si apoi pentru fiecare coordonator citim datele din fisiere,adica numarul de workeri,  rank-urile acestora si alocam un vector pentru aceste rank-uri.
+
+    Apoi trimitem de la fiecare coordonator catre workerii proprii un mesaj pentru a afla cine este coordonatorul lor, trimitem numarul de procese din cluster-ul respectiv cat si rank-urile celorlalti workeri  din fiecare cluster astfel incat fiecare worker sa si cunoasca propriul cluster.
+
+    Apoi coordonatori vor comunica intre ei si isi vor trimite numarul de procese din clusterul fiecaruia cat si vectorul cu rank-urile workerilor din clusterul lor, pe care il vom salva pentru fiecare coordonator in matricea alocata din struct de Process. Astfel acum coordonatorii vor cunoaste toata topologia astfel putem sa facem afisarea pentru ei.
+
+    Dupa ce coordonatorii au aflat topologia putem incepe sa trimitem workerilor numarul de procese din celelalte clusteruri cat si rankurile proceselor din celelalte clusteruri. Astfel dupa ce ne am asigurat ca send si receviurile au fost facute corect, workerii vor cunoaste toata topologia programului si astfel pot sa o afiseze.
+
+Task 2:
+    Am alocat vectorul cu dimensiunea data ca argument, dupa care l am umplut de 0-uri pentru a fi sigur ca dimensiunea se imparte exact la numarul de workeri astfel incat fiecare worker sa primeasca o portiune egala de procesat din vectorul mare. 
+    Am trimis la workerii din cluster0ul 0 dimensiunea vectorului,vectorul si am calculat pe baza formulelor de la pthreads un start si end pentru a trimite workerilor bucata din vectorul mare pe care fiecare o are de procesat.
+     Apoi am trimis vectorul si dimensiunea si celorlalti coordonatori pentru a putea proceda la fel. Ceilalti coordonatori vor trimite si ei la randul
+    lor dimensiunea vectorul si start/end pentru fiecare worker din clusterul propriu. 
+    Dupa ce workerii au primit vectorul si a procesat fiecare partea dintre start si end pe care o avea acestia vor trimite inapoi la la coordonatorii lor vectorul intreg. 
+    In coordonatori am retinut in campurile start si end din structura ,primul start si ultimul end pentru a stii ce parti au fost procesate de proprii workeri pentru a putea fi trimise ulterior coordonatorului 0. 
+    Coordonatorii 1 si 2 vor trimite start/end cat si vectorul intreg catre coordonatorul 0, iar dupa ce acesta a primit toate partile prelucrate,atat de la
+    proprii workeri cat si de la ceilalti coordonatori va putea sa afiseze vectorul procesat.
